@@ -1,5 +1,5 @@
 import java.util.*;
-public class Alist{
+public class ArrayListMethods{
     public static void main(String[]args){
 	ArrayList<Integer> a=new ArrayList<Integer>(10);
 	a.add(1);
@@ -15,6 +15,8 @@ public class Alist{
 	System.out.println(a);
 	collapseDuplicates(a);
 	System.out.println(a);
+	randomize(a);
+	System.out.println(a);
     }
 
     public static void collapseDuplicates(ArrayList<Integer>L){
@@ -25,4 +27,14 @@ public class Alist{
 	    }
 	}
     }
+
+    public static void randomize(ArrayList<Integer>L){
+	Random rand=new Random();
+	for (int i=L.size();i>0;i--){
+	    int index=rand.nextInt(i);
+	    L.add(L.get(index));
+	    L.remove(index);  
+	}
+    }
+
 }
