@@ -65,24 +65,27 @@ public class WordGrid{
 		 a=true;
 	     }else{
 		 a=false;
+		 break;
 	     }
 	 } 
 	 if (a==false){
 	     for (int i=0;i<word.length();i++){     
 		 if (((data[row][col+i]+"").equals(" "))||
-		     ((data[row][col+i]+"").equals(word.charAt(word.length-i)+""))){
+		     ((data[row][col+i]+"").equals(word.charAt(word.length()-i)+""))){
 		     a=true;
 		 }else{
-		     a=false;
+		     return false;
 		 }
 	     } 
-	 }
 	 
-	 for (int j=0;j<word.length();j++){
-	     data[row][col+j]=word.charAt(j);
-	 }
-     
-	 
+	     for (int j=0;j<word.length();j++){
+		 data[row+j][col]=word.charAt(word.length()-j);
+	     }
+	 }else{	 
+	     for (int j=0;j<word.length();j++){
+		 data[row][col+j]=word.charAt(j);
+	     }
+	 } 
 	 return a;
      }
 
@@ -97,6 +100,7 @@ public class WordGrid{
 		 a=true;
 	     }else{
 		 a=false;
+		 break;
 	     }
 	 }
 	 if (a==false){
@@ -121,23 +125,42 @@ public class WordGrid{
     
     //add diagonal from NW to SE
     public boolean addWordDiagonal(String word, int row, int col){
-	Random rand=new Random();
-        if ((addWordVertical(word,row,col))&&
-	    (addWordHorizontal(word,row,col))){
-	    if (rand.nextInt(2)==0){
-		for (int i=0;i<word.length();i++){
-		    data[row+i][col+i]=word.charAt(i);
-		}
+	boolean a=true;
+        if ((word.length()>data.length-col) &&
+	    (word.length()>data[0].length-row)){
+	    return false;
+	}
+
+	for (int i=0;i<word.length();i++){
+	    if (((data[row+i][col+i]+"").equals(" "))||
+		((data[row+i][col+i]+"").equals(word.charAt(i)+""))){
+		a=true;
 	    }else{
-		for (int i=0;i>word.length();i++){
-		    data[row+i][col+i]=word.charAt(word.length()-i);
+		a=false;
+		break;
+	    }
+	}
+	if (a==false){
+	    for (int i=0;i<word.length();i++){
+		if (((data[row+i][col+i]+"").equals(" "))||
+		    ((data[row+i][col+i]+"").equals(word.charAt(word.length()-i)+""))){
+		    a=true;
+		}else{
+		    return false;
 		}
 	    }
-	    return true;
+	    for (int i=0;i>word.length();i++){
+		data[row+i][col+i]=word.charAt(word.length()-i);
+	    }
+	}else{				     
+	    for (int i=0;i<word.length();i++){
+		data[row+i][col+i]=word.charAt(i);
+	    }
 	}
-	return false;	
+	return a;
     }
 
+   
 
     public void fill(){
 	Random rand=new Random();
@@ -159,9 +182,10 @@ public class WordGrid{
 	
 	System.out.println(a.addWordHorizontal("cat",1,1));
 	System.out.println(a.addWordVertical("sad",0,2));
-	System.out.println(a.addWordDiagonal("lard",0,0));
+	System.out.println(a.addWordDiagonal("at",1,2));
 	a.fill();
 	System.out.println(a.toString());
-	System.out.println(a.addWordHorizontal("bummy",1,2));
+
     }
 }
+
