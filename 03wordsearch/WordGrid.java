@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 import java.util.Random;
 public class WordGrid{
     private char[][]data;
@@ -177,12 +180,26 @@ public class WordGrid{
 
    
 
-    public static void main(String[]args){
-	WordGrid a=new WordGrid();
+    public static void main(String[]args)throws FileNotFoundException{
+	WordGrid a=new WordGrid(10,10);
 	
-	System.out.println(a.addWordHorizontal("cat",1,1));
-	System.out.println(a.addWordVertical("sad",0,2));
-	System.out.println(a.addWordDiagonal("at",1,2));
+	File text=new File("words.txt");
+	Scanner in=new Scanner(text);
+	
+	Random rand=new Random();
+	int randCor=rand.nextInt(10);
+	final int randC=rand.nextInt(3);
+	while (in.hasNextLine()){
+	    String word=in.nextLine();
+	    if (randC==0){
+		a.addWordHorizontal(word,randCor,randCor);
+	    }else if (randC==1){
+		a.addWordVertical(word,randCor,randCor);
+	    }else{
+		a.addWordDiagonal(word,randCor,randCor);
+	    }
+	    
+	}
 	a.fill();
 	System.out.println(a.toString());
 
