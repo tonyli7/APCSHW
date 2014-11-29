@@ -1,0 +1,10 @@
+boss
+cat
+dog
+human
+gorilla
+spider
+cockroach
+cake
+gang
+horror
