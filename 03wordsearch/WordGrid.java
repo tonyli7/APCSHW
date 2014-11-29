@@ -57,110 +57,28 @@ public class WordGrid{
      *@return true when the word is added successfully. When the word doesn't fit,
      *or there are overlapping letters that do not match, then false is returned.
      */
-     public boolean addWordHorizontal(String word,int row,int col){
-	 boolean a=true;
-	 if (word.length()>data.length-col){
-	     return false;
-	 }
-	 for (int i=0;i<word.length();i++){     
-	     if (((data[row][col+i]+"").equals(" "))||
-		 ((data[row][col+i]+"").equals(word.charAt(i)+""))){
-		 a=true;
-	     }else{
-		 a=false;
-		 break;
-	     }
-	 } 
-	 if (a==false){
-	     for (int i=0;i<word.length();i++){     
-		 if (((data[row][col+i]+"").equals(" "))||
-		     ((data[row][col+i]+"").equals(word.charAt(word.length()-i)+""))){
-		     a=true;
-		 }else{
-		     return false;
-		 }
-	     } 
-	 
-	     for (int j=0;j<word.length();j++){
-		 data[row+j][col]=word.charAt(word.length()-j);
-	     }
-	 }else{	 
-	     for (int j=0;j<word.length();j++){
-		 data[row][col+j]=word.charAt(j);
-	     }
-	 } 
-	 return a;
-     }
-
-    public boolean addWordVertical(String word, int row, int col){
-	boolean a=true;
-	if (word.length()>data[0].length-row){
-	     return false;
-	 }
-	 for (int i=0;i<word.length();i++){
-	     if (((data[row+i][col]+"").equals(" "))||
-		 ((data[row+i][col]+"").equals(word.charAt(i)+""))){
-		 a=true;
-	     }else{
-		 a=false;
-		 break;
-	     }
-	 }
-	 if (a==false){
-	     for (int i=0;i<word.length();i++){
-		 if (((data[row+i][col]+"").equals(" "))||
-		     ((data[row+i][col]+"").equals(word.charAt(word.length()-i)+""))){
-		     a=true;
-		 }else{
-		     return false;
-		 }
-	     }
-	     for (int j=0;j<word.length();j++){
-		 data[row+j][col]=word.charAt(word.length()-j);
-	     }
-	 }else{
-	     for (int j=0;j<word.length();j++){
-		 data[row+j][col]=word.charAt(j);
-	     }
-	 }
-	 return a;
-    }
-    
-    //add diagonal from NW to SE
-    public boolean addWordDiagonal(String word, int row, int col){
-	boolean a=true;
-        if ((word.length()>data.length-col) &&
-	    (word.length()>data[0].length-row)){
+    public boolean checkWord(String word, int row, int col, int dx, int dy){
+	if ((((word.length()>data.length-row)&&
+	     (word.length()>data[0].length-col))&&
+	    ((word.length()>row)&&
+	     (word.length()>col)))){
 	    return false;
 	}
-
 	for (int i=0;i<word.length();i++){
-	    if (((data[row+i][col+i]+"").equals(" "))||
-		((data[row+i][col+i]+"").equals(word.charAt(i)+""))){
-		a=true;
-	    }else{
-		a=false;
-		break;
+	    if ((!(word.charAt(i)+"").equals(data[row-i*dx][col-i*dy]))&&
+		(!(data[row-i*dx][col-i*dy]+"").equals(" "))){
+		return false;
 	    }
 	}
-	if (a==false){
+	return true;
+    }
+
+    public void addWord(String word, int row, int col, int dx, int dy){
+	if (checkWord(word,row,col,dx,dy)){
 	    for (int i=0;i<word.length();i++){
-		if (((data[row+i][col+i]+"").equals(" "))||
-		    ((data[row+i][col+i]+"").equals(word.charAt(word.length()-i)+""))){
-		    a=true;
-		}else{
-		    return false;
-		}
-	    }
-	    for (int i=0;i>word.length();i++){
-		data[row+i][col+i]=word.charAt(word.length()-i);
-	    }
-	}else{				     
-	    for (int i=0;i<word.length();i++){
-		data[row+i][col+i]=word.charAt(i);
-	    }
+		data[row-i*dx][col-i*dy]=word.charAt(i);
+	    }	
 	}
-	return a;
     }
 
    
@@ -178,11 +96,28 @@ public class WordGrid{
 	}
     }
 
+    public String wordsInPuzzle(ArrayList<String>a){
+	String words="";
+	int tempVal=4;
+	for (int i=0;i<a.size();i++){
+	    words+=a.get(i)+"    ";
+	    tempVal-=1;
+	    if (tempVal==0){
+		words+="\n";
+		tempVal=4;
+	    }
+	}
+	return words;
+    }
+
+    
+
    
 
     public static void main(String[]args)throws FileNotFoundException{
 	WordGrid a=new WordGrid(10,10);
-	
+	ArrayList<String>wordlist=new ArrayList<String>(10);
+
 	File text=new File("words.txt");
 	Scanner in=new Scanner(text);
 	
@@ -191,18 +126,16 @@ public class WordGrid{
 	final int randC=rand.nextInt(3);
 	while (in.hasNextLine()){
 	    String word=in.nextLine();
-	    if (randC==0){
-		a.addWordHorizontal(word,randCor,randCor);
-	    }else if (randC==1){
-		a.addWordVertical(word,randCor,randCor);
-	    }else{
-		a.addWordDiagonal(word,randCor,randCor);
-	    }
-	    
+	    if (a.checkWord(word,1,1,-1,-1)){
+		a.addWord(word,1,1,-1,-1); 
+		wordlist.add(word);
+		System.out.println(a.checkWord(word,1,1,-1,-1));
+	    }	    
 	}
-	a.fill();
-	System.out.println(a.toString());
+	//	a.fill();
 
+	System.out.println(a.wordsInPuzzle(wordlist));
+	System.out.println(a.toString());
     }
 }
 
