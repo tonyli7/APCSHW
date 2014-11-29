@@ -122,14 +122,17 @@ public class WordGrid{
 	Scanner in=new Scanner(text);
 	
 	Random rand=new Random();
-	int randCor=rand.nextInt(10);
-	final int randC=rand.nextInt(3);
+
 	while (in.hasNextLine()){
+	    final int randxCor=rand.nextInt(5);
+	    final int randyCor=rand.nextInt(5);
+	    final int randDx=rand.nextInt(2)-1;
+	    final int randDy=rand.nextInt(2)-1;
 	    String word=in.nextLine();
-	    if (a.checkWord(word,1,1,-1,-1)){
-		a.addWord(word,1,1,-1,-1); 
+	    if (a.checkWord(word,randxCor,randyCor,randDx,randDy)){
+		a.addWord(word,randxCor,randyCor,randDx,randDy); 
 		wordlist.add(word);
-		System.out.println(a.checkWord(word,1,1,-1,-1));
+		System.out.println(a.checkWord(word,randxCor,randyCor,randDx,randDy));
 	    }	    
 	}
 	//	a.fill();
