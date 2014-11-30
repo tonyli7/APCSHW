@@ -59,27 +59,27 @@ public class WordGrid{
      */
     public boolean checkWord(String word, int row, int col, int dx, int dy){
 	if ((dx==1)&&(dy==1)){
-	    if ((word.length()>=row)&&
-		(word.length()>=col)){
+	    if ((word.length()>=row)||
+		(word.length()>=data[0].length-col)){
 		return false;
 	    }
 	}else if((dx==1)&&(dy==-1)){
-	    if ((word.length()>=data.length-row)&&
-		(word.length()>=col)){
+	    if ((word.length()>=data.length-row)||
+		(word.length()>=data[0].length-col)){
 		return false;
 	    }
 	}else if((dx==-1)&&(dy==1)){
-	    if ((word.length()>=row)&&
-		(word.length()>=data[0].length-col)){
+	    if ((word.length()>=row)||
+		(word.length()>=col)){
 		return false;
 	    }
 	}else if((dx==-1)&&(dy==-1)){
-	     if ((word.length()>=data.length-row)&&
-		(word.length()>=data[0].length-col)){
+	     if ((word.length()>=data.length-row)||
+		(word.length()>=col)){
 		return false;
 	    }
 	}else if((dx==1)&&(dy==0)){
-	    if (word.length()>=col){
+	    if (word.length()>=data[0].length-col){
 		return false;
 	    }
 	}else if((dx==0)&&(dy==1)){
@@ -87,7 +87,7 @@ public class WordGrid{
 		return false;
 	    }
 	}else if((dx==-1)&&(dy==0)){
-	    if (word.length()>=data[0].length-col){
+	    if (word.length()>=col){
 		return false;
 	    }
 	}else if((dx==0)&&(dy==-1)){
