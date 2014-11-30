@@ -34,7 +34,9 @@ public class Driver{
 	    }	    
 	}
 
-	//	a.fill();
+	if (Integer.valueOf(args[3])==1){
+	    a.fill();
+	}
 
 	System.out.println(a.wordsInPuzzle(wordlist));
 	System.out.println(a.toString());
