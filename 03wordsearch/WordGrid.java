@@ -143,38 +143,12 @@ public class WordGrid{
 	return words;
     }
 
-    
-
-   
-
-    public static void main(String[]args)throws FileNotFoundException{
-	WordGrid a=new WordGrid(10,10);
-	ArrayList<String>wordlist=new ArrayList<String>(10);
-
-	File text=new File("words.txt");
-	Scanner in=new Scanner(text);
-	
-	Random rand=new Random();
-
-
-	while (in.hasNextLine()){
-	    final int randxCor=rand.nextInt(9);
-	    final int randyCor=rand.nextInt(9);
-	    final int randDx=rand.nextInt(2)-1;
-	    final int randDy=rand.nextInt(2)-1;
-	    String word=in.nextLine();
-	    if (a.checkWord(word,randxCor,randyCor,randDx,randDy)){
-		System.out.println(a.checkWord(word,randxCor,randyCor,randDx,randDy));
-		a.addWord(word,randxCor,randyCor,randDx,randDy); 
-		wordlist.add(word);
-	
-	    }	    
-	}
-	a.addWord("hell",5,5,1,1);
-	//	a.fill();
-
-	System.out.println(a.wordsInPuzzle(wordlist));
-	System.out.println(a.toString());
+    public void loadWordsFromFile(String fileName, boolean fillRandomLetters){
     }
+
+    public void setSeed(long seed){
+	Random rand=new Random(seed);
+    }
+    
 }
 
