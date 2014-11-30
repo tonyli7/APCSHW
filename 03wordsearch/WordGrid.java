@@ -24,7 +24,7 @@ public class WordGrid{
     private void clear(){
 	for (int i=0;i<data.length;i++){
 	    for (int j=0;j<data[i].length;j++){
-		data[i][j]=' ';
+		data[i][j]='-';
 	    }
 	}
     }
@@ -58,15 +58,48 @@ public class WordGrid{
      *or there are overlapping letters that do not match, then false is returned.
      */
     public boolean checkWord(String word, int row, int col, int dx, int dy){
-	if ((((word.length()>data.length-row)&&
-	     (word.length()>data[0].length-col))&&
-	    ((word.length()>row)&&
-	     (word.length()>col)))){
+	if ((dx==1)&&(dy==1)){
+	    if ((word.length()>=row)&&
+		(word.length()>=col)){
+		return false;
+	    }
+	}else if((dx==1)&&(dy==-1)){
+	    if ((word.length()>=data.length-row)&&
+		(word.length()>=col)){
+		return false;
+	    }
+	}else if((dx==-1)&&(dy==1)){
+	    if ((word.length()>=row)&&
+		(word.length()>=data[0].length-col)){
+		return false;
+	    }
+	}else if((dx==-1)&&(dy==-1)){
+	     if ((word.length()>=data.length-row)&&
+		(word.length()>=data[0].length-col)){
+		return false;
+	    }
+	}else if((dx==1)&&(dy==0)){
+	    if (word.length()>=col){
+		return false;
+	    }
+	}else if((dx==0)&&(dy==1)){
+	    if (word.length()>=row){
+		return false;
+	    }
+	}else if((dx==-1)&&(dy==0)){
+	    if (word.length()>=data[0].length-col){
+		return false;
+	    }
+	}else if((dx==0)&&(dy==-1)){
+	    if (word.length()>=data.length-row){
+		return false;
+	    }
+	}else{
 	    return false;
 	}
 	for (int i=0;i<word.length();i++){
-	    if ((!(word.charAt(i)+"").equals(data[row-i*dx][col-i*dy]))&&
-		(!(data[row-i*dx][col-i*dy]+"").equals(" "))){
+	    if ((!(word.charAt(i)+"").equals(data[row-i*dy][col+i*dx]))&&
+		(!(data[row-i*dy][col+i*dx]+"").equals("-"))){
 		return false;
 	    }
 	}
@@ -76,7 +109,7 @@ public class WordGrid{
     public void addWord(String word, int row, int col, int dx, int dy){
 	if (checkWord(word,row,col,dx,dy)){
 	    for (int i=0;i<word.length();i++){
-		data[row-i*dx][col-i*dy]=word.charAt(i);
+		data[row-i*dy][col+i*dx]=word.charAt(i);
 	    }	
 	}
     }
@@ -88,7 +121,7 @@ public class WordGrid{
 	String alpha="abcdefghijklmnopqrstuvwxyz";
 	for (int i=0;i<data.length;i++){
 	    for (int j=0;j<data[i].length;j++){
-		if ((data[i][j]+"").equals(" ")){
+		if ((data[i][j]+"").equals("-")){
 		    int index=rand.nextInt(26);
 		    data[i][j]=alpha.charAt(index);
 		}
@@ -123,18 +156,21 @@ public class WordGrid{
 	
 	Random rand=new Random();
 
+
 	while (in.hasNextLine()){
-	    final int randxCor=rand.nextInt(5);
-	    final int randyCor=rand.nextInt(5);
+	    final int randxCor=rand.nextInt(9);
+	    final int randyCor=rand.nextInt(9);
 	    final int randDx=rand.nextInt(2)-1;
 	    final int randDy=rand.nextInt(2)-1;
 	    String word=in.nextLine();
 	    if (a.checkWord(word,randxCor,randyCor,randDx,randDy)){
+		System.out.println(a.checkWord(word,randxCor,randyCor,randDx,randDy));
 		a.addWord(word,randxCor,randyCor,randDx,randDy); 
 		wordlist.add(word);
-		System.out.println(a.checkWord(word,randxCor,randyCor,randDx,randDy));
+	
 	    }	    
 	}
+	a.addWord("hell",5,5,1,1);
 	//	a.fill();
 
 	System.out.println(a.wordsInPuzzle(wordlist));
