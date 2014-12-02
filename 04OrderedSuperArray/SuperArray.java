@@ -7,7 +7,7 @@ public class SuperArray{
     }
 
     public SuperArray(int len){
-	currentLength=len;
+	setLength(len);
 	superArray=new String[len];
     }
 
@@ -88,6 +88,10 @@ public class SuperArray{
 
     public void setArray(String[] a){
 	this.superArray=a;
+    }
+
+    public String[] getArray(){
+	return superArray;
     }
 
     public int size(){
