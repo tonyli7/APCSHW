@@ -4,10 +4,13 @@ import java.util.*;
 import java.util.Random;
 public class WordGrid{
     private char[][]data;
+    private long seed;
+    private Random rand;
+    private ArrayList<String> wordlist;
 
   
     public WordGrid(){
-	this(4,4);
+	this(4,4,2000);
     }
 
     /**Initialize the grid to the size specified and fill all of the positions
@@ -15,9 +18,11 @@ public class WordGrid{
      *@param row is the starting height of the WordGrid
      *@param col is the starting width of the WordGrid
      */
-    public WordGrid(int rows, int cols){
+    public WordGrid(int rows, int cols,long seed){
 	data=new char[rows][cols];
 	clear();
+	setSeed(seed);
+	wordlist=new ArrayList<String>(10);
     }
    
     /**Set all values in the WordGrid to spaces ' '*/
@@ -143,11 +148,47 @@ public class WordGrid{
 	return words;
     }
 
-    public void loadWordsFromFile(String fileName, boolean fillRandomLetters){
+    public void loadWordsFromFile(String fileName, int fillRandomLetters)throws FileNotFoundException{
+	
+
+	File text=new File("words.txt");
+	Scanner in=new Scanner(text);
+	
+	setSeed(seed);
+
+
+	while (in.hasNextLine()){
+	    final int randxCor=rand.nextInt(getCols());
+	    final int randyCor=rand.nextInt(getRows());
+	    final int randDx=rand.nextInt(2)-1;
+	    final int randDy=rand.nextInt(2)-1;
+	    String word=in.nextLine();
+	    if (checkWord(word,randyCor,randxCor,randDx,randDy)){
+		addWord(word,randyCor,randxCor,randDx,randDy); 
+		wordlist.add(word);
+	
+	    }	    
+	}
+
+	if (fillRandomLetters==1){
+	    fill();
+	}
     }
 
     public void setSeed(long seed){
-	Random rand=new Random(seed);
+	rand=new Random(seed);
+    }
+
+    public int getRows(){
+	return data.length;
+    }
+
+    public int getCols(){
+	return data[0].length;
+    }
+
+    public ArrayList getList(){
+	return wordlist;
     }
     
 }

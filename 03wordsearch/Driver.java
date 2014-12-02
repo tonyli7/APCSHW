@@ -8,37 +8,14 @@ public class Driver{
 	int rows=Integer.valueOf(args[0]);
 	int cols=Integer.valueOf(args[1]);
 	long seed=Long.valueOf(args[2]);
-       
-	WordGrid a=new WordGrid(rows,cols);
 
-	ArrayList<String>wordlist=new ArrayList<String>(10);
-
-	File text=new File("words.txt");
-	Scanner in=new Scanner(text);
+	WordGrid a=new WordGrid(rows,cols,seed);
 	
-	Random rand=new Random();
-	rand.setSeed(seed);
 
 
-	while (in.hasNextLine()){
-	    final int randxCor=rand.nextInt(cols);
-	    final int randyCor=rand.nextInt(rows);
-	    final int randDx=rand.nextInt(2)-1;
-	    final int randDy=rand.nextInt(2)-1;
-	    String word=in.nextLine();
-	    if (a.checkWord(word,randyCor,randxCor,randDx,randDy)){
-		System.out.println(a.checkWord(word,randyCor,randxCor,randDx,randDy));
-		a.addWord(word,randyCor,randxCor,randDx,randDy); 
-		wordlist.add(word);
 	
-	    }	    
-	}
-
-	if (Integer.valueOf(args[3])==1){
-	    a.fill();
-	}
-
-	System.out.println(a.wordsInPuzzle(wordlist));
+	a.loadWordsFromFile("words.txt",Integer.valueOf(args[3]));
+	System.out.println(a.wordsInPuzzle(a.getList()));
 	System.out.println(a.toString());
     }
 }
