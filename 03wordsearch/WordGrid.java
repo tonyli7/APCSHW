@@ -170,7 +170,7 @@ public class WordGrid{
 	    }	    
 	}
 
-	if (fillRandomLetters==1){
+	if (fillRandomLetters==0){
 	    fill();
 	}
     }
