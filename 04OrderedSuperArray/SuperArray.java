@@ -1,6 +1,6 @@
 public class SuperArray{
-    private String[] superArray;
-    private int currentLength;
+    String[] superArray;
+    int currentLength;
 
     public SuperArray(){
 	this(10);
@@ -8,7 +8,7 @@ public class SuperArray{
 
     public SuperArray(int len){
 	setLength(len);
-	superArray=new String[len];
+	setNew(len);
     }
 
     public String toString(){
@@ -38,8 +38,7 @@ public class SuperArray{
 	setArray(superArray);
     }
 
-    public void add(){
-    }
+  
 
     public void add(String e){
 	for (int i=0;i<currentLength;i++){
@@ -88,6 +87,10 @@ public class SuperArray{
 
     public void setArray(String[] a){
 	this.superArray=a;
+    }
+
+    public void setNew(int len){
+	superArray=new String[len];
     }
 
     public String[] getArray(){
