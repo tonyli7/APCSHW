@@ -134,7 +134,14 @@ public class SuperArray{
 	
 		superArray[j+1]=temp;
 	    }
-	    System.out.println(toString());
 	}
     }
+    /*starts with second element and stores
+      it temporarily. Then while the stored 
+      element precedes the current element,
+      the current element shifts to the right.
+      When the current element precedes the
+      stored element, the stored element replaces
+      the current. Then the process repeats 
+      to sort the next element.*/
 }
