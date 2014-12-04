@@ -1,13 +1,19 @@
 public class SuperDriver{
     public static void main(String[]args){
-	OrderedSuperArray a=new OrderedSuperArray();
-	a.set(0,"apple");
-	a.set(1,"banana");
-	a.set(2,"falcon");
-	a.set(3,"gater");
-	a.set(4,"peach");
+	SuperArray a=new SuperArray();
+       
+	a.add("zebra");
+	System.out.println(a);
+	a.add("apple");
+
+        
+	
+	a.add("falcon");
+	a.add("gater");
+	a.add("peach");
 
 	a.add("cat");
+	a.insertionSort();
 	System.out.println(a.toString());
     }
 }
