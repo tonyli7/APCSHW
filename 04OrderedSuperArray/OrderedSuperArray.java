@@ -23,5 +23,18 @@ public class OrderedSuperArray extends SuperArray{
 	return original;
     }
 
+    public int find(String target){
+	for (int i=size()/2;i<size();){
+	    if (target.equals(superArray[i])){
+		return i;
+	    }else if (target.compareTo(superArray[i])<0){
+		i=i/2;
+	    }else{
+		i=i+i/2;
+	    }
+	}
+	return -1;
+    }
+
  
 }

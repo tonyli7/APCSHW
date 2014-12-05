@@ -121,6 +121,17 @@ public class SuperArray{
 	
     }
 
+    public void badInsertionSort(){
+        OrderedSuperArray c = new OrderedSuperArray();
+        while( this.size() > 0){ 
+            c.add(this.remove(0));
+        }
+        while(c.size() > 0){
+            this.add(c.remove(0));
+        }
+    }
+   
+
     public void insertionSort(){
 	String temp="";
 	for (int i=0;i<size()-1;i++){
@@ -144,4 +155,19 @@ public class SuperArray{
       stored element, the stored element replaces
       the current. Then the process repeats 
       to sort the next element.*/
+
+    //insertionSort does indeed work because it prints the same thing as the built-in
+
+    /*insertionSort can be tested by comparing how many milliseconds it would take
+      to sort a list of 1000 random "words" to how many it would take the 
+      badInsertionSort.*/
+
+    public int find(String target){
+	for (int i=0;i<size();i++){
+	    if (target.equals(superArray[i])){
+		return i;
+	    }
+	}
+	return -1;
+    }
 }
