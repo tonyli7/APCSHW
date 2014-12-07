@@ -6,13 +6,16 @@ public class SuperDriver{
 	Random rand=new Random(20);
 	int i=0;
 
-	while (i<1000000){
-	 
+	while (i<10000){
+	    a.add(""+rand.nextInt());
+	    i++;
 	}
 
-
-	a.selectionSort();
-	System.out.println(a.toString());
+	long start=System.currentTimeMillis();
+	a.insertionSort();
+	long end=System.currentTimeMillis();
+	long time=end-start;
+	System.out.println(time);
     }
 
    
