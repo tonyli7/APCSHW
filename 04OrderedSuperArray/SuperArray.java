@@ -121,6 +121,22 @@ public class SuperArray{
 	
     }
 
+    public void selectionSort(){
+	String min;
+	String temp;
+	for (int j=0;j<size()-1;j++){
+	    min=superArray[j];
+	    int i=j+1;
+	    for (;i<size();i++){
+		if (superArray[i].compareTo(min)<0){
+		    min=superArray[i];
+		}
+	    }
+	    superArray[find(min)]=superArray[j];
+	    superArray[j]=min;
+	}
+    }
+
     public void badInsertionSort(){
         OrderedSuperArray c = new OrderedSuperArray();
         while( this.size() > 0){ 
