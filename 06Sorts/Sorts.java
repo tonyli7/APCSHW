@@ -1,16 +1,15 @@
 import java.util.*;
-public class Sorts{
-   
+public class Sorts extends SuperArray{
 
-    public static void bubbleSort(int[]array){	
+    public void bubbleSort(){
 	int temp=0;
-	for (int j=0;j<array.length-1;j++){
+	for (int j=0;j<size()-1;j++){
 	    boolean check=true;
-	    for (int i=0;i<array.length-1;i++){
-		if (array[i]>array[i+1]){
-		    temp=array[i+1];
-		    array[i+1]=array[i];
-		    array[i]=temp;
+	    for (int i=0;i<size()-1;i++){
+		if (superArray[i]>superArray[i+1]){
+		    temp=superArray[i+1];
+		    superArray[i+1]=superArray[i];
+		    superArray[i]=temp;
 		    check=false;
 		}
 	    }
@@ -20,27 +19,48 @@ public class Sorts{
 	}
     }
 
-    public static String toString(int[]a){
-	String s="[";
-	for (int i=0;i<a.length;i++){
-	    s=s+(a[i]+"");
-	    if (i!=a.length-1){
-		s+=" , ";
+    public void selectionSort(){
+	int min;
+	int temp;
+	for (int j=0;j<size()-1;j++){
+	    min=superArray[j];
+	    int i=j+1;
+	    for (;i<size();i++){
+		if (superArray[i]<min){
+		    min=superArray[i];
+		}
 	    }
+	    superArray[find(min)]=superArray[j];
+	    superArray[j]=min;
 	}
-	s+="]";
-	return s;
     }
 
-    public static void main(String[]args){
-	Random rand = new Random();
-	int[] array=new int[10];
-	for (int i=0;i<10;i++){
-	    array[i]=rand.nextInt(20);
-	}
-	System.out.println(toString(array));
-	bubbleSort(array);
-	System.out.println(toString(array));
-	
+    public void badInsertionSort(){
+        OrderedSuperArray c = new OrderedSuperArray();
+        while( this.size() > 0){ 
+            c.add(this.remove(0));
+        }
+        while(c.size() > 0){
+            this.add(c.remove(0));
+        }
     }
+   
+
+    public void insertionSort(){
+	int temp=0;
+	for (int i=0;i<size()-1;i++){
+	    if (superArray[i+1]<superArray[i]){
+		temp=superArray[i+1];
+		int j=i;
+	
+		for (;(j>=0)&&(temp<superArray[j]);j--){
+		    superArray[j+1]=superArray[j];
+		}
+	
+		superArray[j+1]=temp;
+	    }
+	}
+    }
+
+  
 }
