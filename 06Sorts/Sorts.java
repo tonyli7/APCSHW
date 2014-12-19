@@ -1,15 +1,17 @@
 import java.util.*;
-public class Sorts extends SuperArray{
-
-    public void bubbleSort(){
+public class Sorts{
+    public static void main(String[]args){
+	
+    }
+    public static void bubbleSort(int[] a){
 	int temp=0;
-	for (int j=0;j<size()-1;j++){
+	for (int j=0;j<a.length-1;j++){
 	    boolean check=true;
-	    for (int i=0;i<size()-1;i++){
-		if (superArray[i]>superArray[i+1]){
-		    temp=superArray[i+1];
-		    superArray[i+1]=superArray[i];
-		    superArray[i]=temp;
+	    for (int i=0;i<a.length-1;i++){
+		if (a[i]>a[i+1]){
+		    temp=a[i+1];
+		    a[i+1]=a[i];
+		    a[i]=temp;
 		    check=false;
 		}
 	    }
@@ -19,47 +21,50 @@ public class Sorts extends SuperArray{
 	}
     }
 
-    public void selectionSort(){
+    public static void selectionSort(int[] a){
 	int min;
 	int temp;
-	for (int j=0;j<size()-1;j++){
-	    min=superArray[j];
+	for (int j=0;j<a.length-1;j++){
+	    min=a[j];
 	    int i=j+1;
-	    for (;i<size();i++){
-		if (superArray[i]<min){
-		    min=superArray[i];
+	    for (;i<a.length;i++){
+		if (a[i]<min){
+		    min=a[i];
 		}
 	    }
-	    superArray[find(min)]=superArray[j];
-	    superArray[j]=min;
+	    a[find(min,a)]=a[j];
+	    a[j]=min;
 	}
-    }
-
-    public void badInsertionSort(){
-        OrderedSuperArray c = new OrderedSuperArray();
-        while( this.size() > 0){ 
-            c.add(this.remove(0));
-        }
-        while(c.size() > 0){
-            this.add(c.remove(0));
-        }
     }
    
 
-    public void insertionSort(){
+    public static void insertionSort(int[] a){
 	int temp=0;
-	for (int i=0;i<size()-1;i++){
-	    if (superArray[i+1]<superArray[i]){
-		temp=superArray[i+1];
+	for (int i=0;i<a.length-1;i++){
+	    if (a[i+1]<a[i]){
+		temp=a[i+1];
 		int j=i;
 	
-		for (;(j>=0)&&(temp<superArray[j]);j--){
-		    superArray[j+1]=superArray[j];
+		for (;(j>=0)&&(temp<a[j]);j--){
+		    a[j+1]=a[j];
 		}
 	
-		superArray[j+1]=temp;
+		a[j+1]=temp;
 	    }
 	}
+    }
+
+    public static void radixSort(int[] a){
+    }
+
+    //helpers
+    public static int find(int target, int[] a){
+	for (int i=0;i<a.length;i++){
+	    if (target==a[i]){
+		return i;
+	    }
+	}
+	return -1;
     }
 
   

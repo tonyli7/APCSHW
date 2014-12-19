@@ -2,44 +2,40 @@ import java.util.*;
 public class Driver{
     public static void main(String[]args){
 	long start,end;
-	Random rand = new Random(20);
-	Random rand1 = new Random(20);
-	Random rand2 = new Random(20);
-	Random rand3 = new Random(20);
-	
-	SuperArray a=new Sorts();
-	SuperArray b=new Sorts();
-	SuperArray c=new Sorts();
-	int[]d=new int[10000];
-
+	Random R = new Random();
+	int [] b = new int[10000];
+	int [] i = new int[10000];
+	int [] s = new int[10000];
+	int [] c = new int[10000];
+	int a;
 	for (int x = 0; x < 10000; x++){
-	    a.add(rand.nextInt(2000000));
-	    b.add(rand1.nextInt(2000000));
-	    c.add(rand2.nextInt(2000000));
-	    d[x]=rand3.nextInt(2000000);	
+	    a = R.nextInt(2000000000);
+	    b[x] = a;
+	    i[x] = a;
+	    s[x] = a;
+	    c[x] = a;
 	}
-
 	
 	start = System.currentTimeMillis();
-	a.bubbleSort();
+	Sorts.bubbleSort(b);
 	end = System.currentTimeMillis();
 	System.out.println("bubble");
 	System.out.println(end-start);
 
 	start = System.currentTimeMillis();
-	b.insertionSort();
+	Sorts.insertionSort(i);
 	end = System.currentTimeMillis();
 	System.out.println("insertion");
 	System.out.println(end-start);
 	
 	start = System.currentTimeMillis();
-	c.selectionSort();
+	Sorts.selectionSort(s);
 	end = System.currentTimeMillis();
 	System.out.println("selection");
 	System.out.println(end-start);
 	
 	start = System.currentTimeMillis();
-	Arrays.sort(d);
+	Arrays.sort(c);
 	end = System.currentTimeMillis();
 	System.out.println("double quicksort");
 	System.out.println(end-start);
