@@ -8,12 +8,7 @@ public class Sorts{
 	    x[i]=rand.nextInt(20000);
 	}
 	System.out.println(toString(x));
-	try{
-	    radixSort(x);
-	}
-	catch(Exception e){
-	    System.out.println("FUCK");
-	}
+	radixSort(x);
 	System.out.println(toString(x));
     }
     public static void bubbleSort(int[] a){
@@ -68,21 +63,27 @@ public class Sorts{
     }
 
     public static void radixSort(int[] a){
+	int power=1;
+	int max=a[0]%10;
 	for (int i=0;;i++){
-	    int max=a[0];
-	    ArrayList<ArrayList<Integer>> l = new ArrayList<ArrayList<Integer>>(a.length);
+	    ArrayList<ArrayList<Integer>> l = new ArrayList<ArrayList<Integer>>(10);
+	    for (int z=0;z<10;z++){
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		l.add(al);
+	    }
 	    for (int j=0;j<a.length;j++){
-		l.add((((int)a[j]/Math.pow(10,i))%((int)Math.pow(10,i+1))),a[j]);
-		if (a[j]>max){
-		    max=a[j];
+		l.get((a[j]/power)%10).add(a[j]);
+		if (a[j]%10>max){
+		    max=a[j]%10;
 		}
 	    }
 	    int index=0;
 	    int ctr=0;
-	    for (int x=0;x<a.length;x++){
+	    for (int x=0;x<a.length;){
 		if (l.get(ctr).size()>index){
 		    a[x]=l.get(ctr).get(index);
 		    index++;
+		    x++;
 		}else{
 		    index=0;
 		    ctr++;
@@ -91,6 +92,7 @@ public class Sorts{
 	    if (i==max){
 		break;
 	    }
+	    power=power*10;
 	}
 	
     }
