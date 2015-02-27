@@ -1,16 +1,7 @@
 import java.util.*;
 import java.lang.*;
 public class Sorts{
-    public static void main(String[]args){
-	Random rand = new Random();
-	int[]x=new int[10];
-	for (int i=0;i<10;i++){
-	    x[i]=rand.nextInt(20000);
-	}
-	System.out.println(toString(x));
-	radixSort(x);
-	System.out.println(toString(x));
-    }
+   
     public static void bubbleSort(int[] a){
 	int temp=0;
 	for (int j=0;j<a.length-1;j++){
@@ -97,6 +88,20 @@ public class Sorts{
 	
     }
 
+    public static void MergeSort(int[] a){
+	MergeSort(a, 0, a.length/2);
+    }
+
+    public static void MergeSort(int[] a, int start1, int start2){
+	if (start1==start2){
+	    //compare and merge
+	}
+	else{
+	    //split 
+	}
+    }
+
+
     //helpers
     public static int find(int target, int[] a){
 	for (int i=0;i<a.length;i++){
@@ -125,4 +130,5 @@ public class Sorts{
 	s+="]";
 	return s;
     }
+
 }
